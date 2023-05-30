@@ -102,7 +102,7 @@ class ViT(nn.Module):
 
         elif transfer_type == "prompt":
             for k, p in self.enc.named_parameters():
-                if "prompt" not in k:
+                if "prompt" not in k and "meta_net" not in k:
                     p.requires_grad = False
 
         elif transfer_type == "prompt+bias":

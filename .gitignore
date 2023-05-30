@@ -1,3 +1,8 @@
+.idea/
+datasets/
+hyperparameters/
+output/
+pre-trained_weights/
 GIT_TOKENS.md
 run_examples.sh
 *.npy

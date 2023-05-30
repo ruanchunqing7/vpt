@@ -73,6 +73,10 @@ _C.MODEL.PROMPT.FORWARD_DEEP_NOEXPAND = False  # if true, will not expand input 
 _C.MODEL.PROMPT.VIT_POOL_TYPE = "original"
 _C.MODEL.PROMPT.DROPOUT = 0.0
 _C.MODEL.PROMPT.SAVE_FOR_EACH_EPOCH = False
+_C.MODEL.PROMPT.ADD_INSTANCE_FEATURE = False
+_C.MODEL.PROMPT.RESNET_MODEL_ROOT = "pre-trained_weights"
+_C.MODEL.PROMPT.RESNET_MODEL_NAME = "RN50.pt"
+
 # ----------------------------------------------------------------------
 # adapter options
 # ----------------------------------------------------------------------

@@ -139,6 +139,7 @@ class Trainer():
 
         # setup training epoch params
         total_epoch = self.cfg.SOLVER.TOTAL_EPOCH
+        # total_epoch = 5
         total_data = len(train_loader)
         best_epoch = -1
         best_metric = 0

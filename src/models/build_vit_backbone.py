@@ -16,6 +16,7 @@ from .vit_adapter.vit_mae import build_model as adapter_mae_vit_model
 from .vit_adapter.vit_moco import vit_base as adapter_vit_base
 
 from .vit_adapter.vit import ADPT_VisionTransformer
+from collections import OrderedDict
 MODEL_ZOO = {
     "swint_imagenet": "swin_tiny_patch4_window7_224.pth",
     "swint_imagenet_ssl": "moby_swin_t_300ep_pretrained.pth",
@@ -399,6 +400,25 @@ def build_vit_sup_models(
     
     if load_pretrain:
         model.load_from(np.load(os.path.join(model_root, MODEL_ZOO[model_type])))
+
+        # 考虑 instance feature 的 prompt 网络要加载 resnet 网络
+        if prompt_cfg.ADD_INSTANCE_FEATURE and prompt_cfg is not None:
+            resnet_model_path = os.path.join(prompt_cfg.RESNET_MODEL_ROOT, prompt_cfg.RESNET_MODEL_NAME)
+            try:
+                # loading JIT archive
+                resnet_model = torch.jit.load(resnet_model_path, map_location="cpu").eval()
+                state_dict = resnet_model.state_dict()
+            except RuntimeError:
+                state_dict = torch.load(resnet_model_path, map_location="cpu")
+            # state_dict = torch.load(resnet_model_path, map_location="cpu")
+
+            new_state_dict = OrderedDict()
+            for k, v in state_dict.items():
+                # delete visual.
+                if k.startswith("visual."):
+                    new_state_dict[k[7:]] = v
+
+            model.transformer.image_encoder.load_state_dict(new_state_dict, strict=True)
 
     return model, m2featdim[model_type]
 
