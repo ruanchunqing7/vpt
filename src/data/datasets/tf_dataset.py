@@ -15,7 +15,7 @@ from ..vtab_datasets import base
 from ..vtab_datasets import caltech
 from ..vtab_datasets import cifar
 from ..vtab_datasets import clevr
-from ..vtab_datasets import diabetic_retinopathy
+# from ..vtab_datasets import diabetic_retinopathy
 from ..vtab_datasets import dmlab
 from ..vtab_datasets import dsprites
 from ..vtab_datasets import dtd
@@ -39,11 +39,14 @@ DATASETS = [
     'dtd',
     'oxford_flowers102',
     'oxford_iiit_pet',
-    'patch_camelyon',
     'sun397',
     'svhn',
+
+    'patch_camelyon',
     'resisc45',
     'eurosat',
+    'diabetic_retinopathy(config="btgraham-300")',
+
     'dmlab',
     'kitti(task="closest_vehicle_distance")',
     'smallnorb(predicted_attribute="label_azimuth")',
@@ -52,7 +55,7 @@ DATASETS = [
     'dsprites(predicted_attribute="label_orientation",num_classes=16)',
     'clevr(task="closest_object_distance")',
     'clevr(task="count_all")',
-    'diabetic_retinopathy(config="btgraham-300")'
+
 ]
 
 

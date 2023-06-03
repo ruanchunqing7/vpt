@@ -108,11 +108,15 @@ class PromptedTransformer(Transformer):
             self.meta_net = nn.Sequential(OrderedDict([
                 ("linear1", nn.Linear(embed_dim, embed_dim // 16)),
                 ("relu", nn.ReLU(inplace=True)),
-                ("linear2", nn.Linear(embed_dim // 16, prompt_dim))
+                ("linear2", nn.Linear(embed_dim // 16, embed_dim // 16)),
+                ("relu", nn.ReLU(inplace=True)),
+                ("linear3", nn.Linear(embed_dim // 16, embed_dim // 16)),
+                ("relu", nn.ReLU(inplace=True)),
+                ("linear4", nn.Linear(embed_dim // 16, prompt_dim))
             ]))
 
 
-    def incorporate_prompt(self, x, ):
+    def incorporate_prompt(self, x):
         # combine prompt embeddings with image-patch embeddings
         B = x.shape[0]
         # after CLS token, all before image patches
